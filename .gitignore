@@ -1,0 +1,11 @@
+/target
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+.idea/
+.vs/
+Astra.Experiments/
+BenchmarkDotNet.Artifacts/
+*.DotSettings.user

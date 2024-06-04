@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <RustRootDirectory>../../</RustRootDirectory>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\HVM\HVM.csproj" />
+    </ItemGroup>
+
+    <Target Name="CargoBuildDebug" BeforeTargets="PreBuildEvent"  Condition=" '$(Configuration)' == 'Debug' ">
+        <Exec Command="cargo build" WorkingDirectory="$(RustRootDirectory)"/>
+        <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+            <Content Include="$(RustRootDirectory)/target/debug/*hvm_dotnet.*">
+                <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            </Content>
+        </ItemGroup>
+    </Target>
+    <Target Name="CargoBuildRelease" BeforeTargets="PreBuildEvent" Condition=" '$(Configuration)' == 'Release' ">
+        <Exec Command="cargo build --release" WorkingDirectory="$(RustRootDirectory)"/>
+        <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+            <Content Include="$(RustRootDirectory)/target/release/*hvm_dotnet.*">
+                <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            </Content>
+        </ItemGroup>
+    </Target>
+
+</Project>
